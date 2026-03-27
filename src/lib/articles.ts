@@ -1,17 +1,33 @@
 import { supabase, COMPANY_ID } from './supabase';
-import { ArticleRow, rowToArticle, Article } from '../types/article';
+import type { ArticleRow, Article } from '../types/article';
+import { rowToArticle } from '../types/article';
 
 export async function fetchArticles(limit = 50): Promise<Article[]> {
-  const { data, error } = await supabase
+  console.log(`[Supabase] Fetching articles from company_id=${COMPANY_ID}`);
+  console.log(`[Supabase] URL: ${import.meta.env.VITE_SUPABASE_URL}`);
+
+  const { data, error, status, statusText } = await supabase
     .from('Articles')
     .select('*')
     .eq('company_id', COMPANY_ID)
     .order('timestamp', { ascending: false })
     .limit(limit);
 
+  console.log(`[Supabase] Response: status=${status} ${statusText}, rows=${data?.length ?? 0}`);
+
   if (error) {
-    console.error('Error fetching articles:', error);
+    console.error('[Supabase] Error:', error);
     return [];
+  }
+
+  if (!data || data.length === 0) {
+    console.warn('[Supabase] No articles returned. Trying without company_id filter...');
+    const { data: allData, error: allErr, status: allStatus } = await supabase
+      .from('Articles')
+      .select('id, company_id, Title_AI, Status')
+      .limit(5);
+    console.log(`[Supabase] Unfiltered query: status=${allStatus}, rows=${allData?.length ?? 0}`, allData);
+    if (allErr) console.error('[Supabase] Unfiltered error:', allErr);
   }
 
   return (data as ArticleRow[]).map(rowToArticle);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase, COMPANY_ID } from '../lib/supabase';
-import { ArticleRow, rowToArticle, Article } from '../types/article';
+import type { ArticleRow, Article } from '../types/article';
+import { rowToArticle } from '../types/article';
 import { ArticleCard } from '../components/articles/ArticleCard';
 import { Link } from 'react-router-dom';
 

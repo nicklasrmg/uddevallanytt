@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Article } from '../../types/article';
+import type { Article } from '../../types/article';
 import { CategoryBadge } from '../common/CategoryBadge';
 import { TimeAgo } from '../common/TimeAgo';
 

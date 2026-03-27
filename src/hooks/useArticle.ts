@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Article } from '../types/article';
+import type { Article } from '../types/article';
 import { fetchArticleById } from '../lib/articles';
 
 export function useArticle(id: number | null) {

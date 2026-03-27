@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Article } from '../../types/article';
+import type { Article } from '../../types/article';
 
 export function Sidebar({ articles, categories }: { articles: Article[]; categories: string[] }) {
   const topArticles = articles.slice(0, 5);

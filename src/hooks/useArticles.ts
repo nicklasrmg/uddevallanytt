@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Article } from '../types/article';
+import type { Article } from '../types/article';
 import { fetchArticles, fetchArticlesByCategory, searchArticles } from '../lib/articles';
 
 export function useArticles(limit = 50) {
